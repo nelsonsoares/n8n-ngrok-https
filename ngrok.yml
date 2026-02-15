@@ -4,4 +4,4 @@ tunnels:
     n8n:
         proto: http
         addr: n8n:5678
-        domain: nongeologic-hyo-predesirously.ngrok-free.dev
+        domain: ${NGROK_DOMAIN} #your domain here

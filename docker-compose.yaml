@@ -19,6 +19,7 @@ services:
     image: ngrok/ngrok:latest
     environment:
       - NGROK_AUTHTOKEN=${NGROK_TOKEN}
+      - NGROK_DOMAIN=${NGROK_DOMAIN}
     command:
       - "start"
       - "--all"

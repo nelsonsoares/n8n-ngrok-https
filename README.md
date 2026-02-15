@@ -29,29 +29,32 @@ In your Ngrok Dashboard, reserve a domain under **Cloud Edge > Domains**. Once y
 
 ### 4. Configure Environment Variables
 
-Create a `.env` file (this file is git-ignored for security):
+1. Copy the template file to create your own `.env` file:
+   ```bash
+   cp .env-template .env
+   ```
+2. Open the `.env` file and fill in your details:
 
 ```sh
 TIMEZONE=America/Sao_Paulo
 NGROK_TOKEN=your_ngrok_auth_token_here
 URL=https://your-domain.ngrok-free.dev
+NGROK_DOMAIN=your-domain.ngrok-free.dev
 ```
 
+> [!CAUTION]
+> **SECURITY WARNING:** Never commit your `.env` file to version control. This project includes a `.gitignore` file that excludes `.env` by default. If you accidently leak your `NGROK_TOKEN` or `NGROK_DOMAIN`, rotate your secrets immediately in the Ngrok dashboard.
+
 > [!IMPORTANT]
-> The `URL` variable **must** include the `https://` prefix. Without it, n8n will generate OAuth Redirect URLs without the protocol, which will cause OAuth authentication (e.g., Gmail, Google Sheets) to fail.
+> - The `URL` variable **must** include the `https://` prefix for OAuth to work.
+> - The `NGROK_DOMAIN` variable must be the **pure domain only** (e.g., `example.ngrok-free.dev`), as it is used dynamically in `ngrok.yml`.
 
 ### 5. Configure Ngrok Tunnel
 
-Update the `ngrok.yml` file with your reserved domain (without protocol):
+The `ngrok.yml` is now pre-configured to use the `NGROK_DOMAIN` variable from your `.env`. You don't need to edit this file manually:
 
 ```yaml
-version: 2
-log_level: debug
-tunnels:
-    n8n:
-        proto: http
-        addr: n8n:5678
-        domain: your-domain.ngrok-free.dev
+domain: ${NGROK_DOMAIN}
 ```
 
 ## Key Configuration Details
