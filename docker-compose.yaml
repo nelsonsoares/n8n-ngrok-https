@@ -6,6 +6,7 @@ services:
     image: docker.n8n.io/n8nio/n8n
     environment:
       - WEBHOOK_URL=${URL}
+      - N8N_EDITOR_BASE_URL=${URL}
       - TZ=${TIMEZONE}
       - GENERIC_TIMEZONE=${TIMEZONE}
     networks:
@@ -30,6 +31,7 @@ services:
 
 volumes:
   n8n_data:
+
 
 networks:
   n8n-network:
