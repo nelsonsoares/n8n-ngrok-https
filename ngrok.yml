@@ -4,4 +4,4 @@ tunnels:
     n8n:
         proto: http
         addr: n8n:5678
-        domain: ${NGROK_DOMAIN} #your domain here
+        domain: ${NGROK_DOMAIN}
