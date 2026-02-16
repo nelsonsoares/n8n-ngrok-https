@@ -1,6 +1,6 @@
 # n8n com Túnel Ngrok
 
-Read this README in [English 🇺🇸](README.md)
+leia este README em [English 🇺🇸](README.md)
 
 Este repositório contém uma configuração do Docker Compose para rodar o **n8n** com o **Ngrok** como serviço de tunelamento. O n8n é uma ferramenta de automação de fluxo de trabalho que permite conectar diferentes serviços e APIs. O Ngrok expõe servidores locais atrás de NATs e firewalls para a internet pública através de túneis seguros.
 
