@@ -10,7 +10,7 @@ Este repositório contém uma configuração do Docker Compose para rodar o **n8
 
 Antes de começar, certifique-se de ter o seguinte instalado:
 - [Docker](https://docs.docker.com/get-docker/) ou [Podman](https://podman.io/getting-started/installation)
-- [Docker Compose](https://docs.docker.com/compose/install/) (ou `podman compose`)
+- [Docker Compose](https://docs.docker.com/compose/install/) (mesmo se estiver usando o Podman)
 
 ## Configuração
 
@@ -73,11 +73,7 @@ Esta URL é o que você precisa adicionar como um **URI de redirecionamento auto
 ## Rodando a Aplicação
 
 ```bash
-# Com Docker
 docker-compose up -d
-
-# Com Podman
-podman compose up -d
 ```
 
 ## Acessando o n8n
@@ -91,15 +87,11 @@ https://seu-dominio.ngrok-free.dev
 ## Parando a Aplicação
 
 ```bash
-# Com Docker
 docker-compose down
-
-# Com Podman
-podman compose down
 ```
 
 > [!TIP]
-> **DICA DE ESTABILIDADE:** Se você encontrar problemas de conexão ou erros de configuração (como `ERR_NGROK_9034`), sempre use `docker-compose down` (ou `podman compose down`) para parar e remover totalmente os containers e redes virtuais antes de iniciá-los novamente. Isso garante um estado limpo para a configuração dinâmica.
+> **DICA DE ESTABILIDADE:** Se você encontrar problemas de conexão ou erros de configuração (como `ERR_NGROK_9034`), sempre use `docker-compose down` para parar e remover totalmente os containers e redes virtuais antes de iniciá-los novamente. Isso garante um estado limpo para a configuração dinâmica.
 
 ## ⚠️ Suporte a Python no Nó Code
 

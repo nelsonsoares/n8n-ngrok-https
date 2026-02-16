@@ -10,7 +10,7 @@ This repository contains a Docker Compose setup for running **n8n** with **Ngrok
 
 Before you begin, ensure you have the following installed:
 - [Docker](https://docs.docker.com/get-docker/) or [Podman](https://podman.io/getting-started/installation)
-- [Docker Compose](https://docs.docker.com/compose/install/) (or `podman compose`)
+- [Docker Compose](https://docs.docker.com/compose/install/) (even if using Podman)
 
 ## Setup
 
@@ -73,11 +73,7 @@ This URL is what you need to add as an **Authorized redirect URI** in Google Clo
 ## Running the Application
 
 ```bash
-# With Docker
 docker-compose up -d
-
-# With Podman
-podman compose up -d
 ```
 
 ## Accessing n8n
@@ -91,15 +87,11 @@ https://your-domain.ngrok-free.dev
 ## Stopping the Application
 
 ```bash
-# With Docker
 docker-compose down
-
-# With Podman
-podman compose down
 ```
 
 > [!TIP]
-> **STABILITY TIP:** If you encounter connection issues or configuration errors (like `ERR_NGROK_9034`), always use `docker-compose down` (or `podman compose down`) to fully stop and remove containers and virtual networks before starting them again. This ensures a clean state for the dynamic configuration.
+> **STABILITY TIP:** If you encounter connection issues or configuration errors (like `ERR_NGROK_9034`), always use `docker-compose down` to fully stop and remove containers and virtual networks before starting them again. This ensures a clean state for the dynamic configuration.
 
 
 ## ⚠️ Python Support in the Code Node
