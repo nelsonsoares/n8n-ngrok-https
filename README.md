@@ -47,15 +47,7 @@ NGROK_DOMAIN=your-domain.ngrok-free.dev
 
 > [!IMPORTANT]
 > - The `URL` variable **must** include the `https://` prefix for OAuth to work.
-> - The `NGROK_DOMAIN` variable must be the **pure domain only** (e.g., `example.ngrok-free.dev`), as it is used dynamically in `ngrok.yml`.
-
-### 5. Configure Ngrok Tunnel
-
-The `ngrok.yml` is now pre-configured to use the `NGROK_DOMAIN` variable from your `.env`. You don't need to edit this file manually:
-
-```yaml
-domain: ${NGROK_DOMAIN}
-```
+> - The `NGROK_DOMAIN` variable is now passed **dynamically** to the Ngrok container via `docker-compose.yaml`. This eliminates the need for an external `ngrok.yml` file, improving compatibility with Podman (avoiding rootless volume permission issues).
 
 ## Key Configuration Details
 
@@ -103,6 +95,10 @@ docker-compose down
 # With Podman
 podman compose down
 ```
+
+> [!TIP]
+> **STABILITY TIP:** If you encounter connection issues or configuration errors (like `ERR_NGROK_9034`), always use `docker-compose down` (or `podman compose down`) to fully stop and remove containers and virtual networks before starting them again. This ensures a clean state for the dynamic configuration.
+
 
 ## ⚠️ Python Support in the Code Node
 

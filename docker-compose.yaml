@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   n8n:
     container_name: n8n
@@ -19,16 +17,12 @@ services:
     image: ngrok/ngrok:latest
     environment:
       - NGROK_AUTHTOKEN=${NGROK_TOKEN}
-      - NGROK_DOMAIN=${NGROK_DOMAIN}
     command:
-      - "start"
-      - "--all"
-      - "--config"
-      - "/etc/ngrok.yml"
+      - "http"
+      - "n8n:5678"
+      - "--domain=${NGROK_DOMAIN}"
     networks:
       - n8n-network
-    volumes:
-      - ./ngrok.yml:/etc/ngrok.yml
 
 volumes:
   n8n_data:
