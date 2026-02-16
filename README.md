@@ -27,7 +27,9 @@ You need an Ngrok account. If you don't have one, create it at [ngrok.com](https
 
 ### 3. Reserve a Permanent Domain
 
-In your Ngrok Dashboard, reserve a domain under **Cloud Edge > Domains**. Once you have the domain, proceed to the next step.
+By default, Ngrok may provide an ephemeral domain. For this setup to work reliably, it is highly recommended to **reserve a permanent domain** in your Ngrok Dashboard under **Cloud Edge > Domains**. 
+
+If you already have a reserved domain, copy it; otherwise, Ngrok will assign one to you upon first connection, but you should eventually reserve it to avoid changing your `.env` every time you restart.
 
 ### 4. Configure Environment Variables
 
