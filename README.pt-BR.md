@@ -68,10 +68,22 @@ REDIS_PASSWORD=n8n
 Esta configuração foi feita para simular um ambiente profissional, incluindo:
 
 - **PostgreSQL (com pgvector)**: Substitui o SQLite para um gerenciamento de dados robusto. A extensão `pgvector` permite que você use o Postgres como um Banco de Dados Vetorial para fluxos de IA/LLM (embeddings).
+    *   *Nota: Para habilitar, execute `CREATE EXTENSION IF NOT EXISTS vector;` dentro do seu banco.*
 - **Redis e Modo Fila (Queue Mode)**: Separa a instância principal do n8n das execuções. O serviço `n8n-worker` lida com a carga de processamento, garantindo que o editor continue rápido mesmo sob carga pesada.
-- **Ferramentas de Gestão**: 
-    - **pgAdmin**: Gerencie o Postgres pelo navegador em `http://localhost:5050`.
-    - **Redis Commander**: Gerencie o Redis pelo navegador em `http://localhost:8081`.
+- **Ferramentas de Gestão (Navegador)**: 
+    - **pgAdmin**: Gerencie o Postgres pelo navegador em [http://localhost:5050](http://localhost:5050).
+    - **Redis Commander**: Gerencie o Redis pelo navegador em [http://localhost:8081](http://localhost:8081).
+
+### 💡 Entendendo o Acesso e Segurança
+
+Para quem está começando, é fundamental entender que existem duas "camadas" diferentes de acesso:
+
+1.  **Interface de Gestão (O Software)**: Ao abrir o pgAdmin no navegador, você está entrando na *ferramenta de gestão*. Use as credenciais padrão `admin@admin.com` / `admin`.
+2.  **Serviços de Banco (Os Dados)**: Uma vez dentro da ferramenta (ou ao configurar um nó no n8n), você se conecta ao *banco de dados real* usando as credenciais definidas no seu `.env` (ex: `POSTGRES_USER=n8n`).
+
+> [!NOTE]
+> **Conexão via Windows**: Se usar uma ferramenta desktop (como DBeaver), use `localhost` e Porta `5433`.
+> **Conexão dentro do n8n**: Ao configurar um nó de Postgres no n8n, use Host `postgres` e Porta `5432`.
 
 ### URL de Redirecionamento OAuth (HTTPS)
 

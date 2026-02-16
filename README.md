@@ -68,10 +68,22 @@ REDIS_PASSWORD=n8n
 This setup is configured for production-like studies, featuring:
 
 - **PostgreSQL (with pgvector)**: Replaces SQLite for robust data handling. The `pgvector` extension allows you to use Postgres as a Vector Database for AI/LLM workflows (embeddings).
+    *   *Note: To enable it, run `CREATE EXTENSION IF NOT EXISTS vector;` inside your database.*
 - **Redis & Queue Mode**: Separates the n8n main instance from executions. The `n8n-worker` service handles the actual workload, ensuring the editor remains responsive even under heavy load.
-- **Management Tools**: 
-    - **pgAdmin**: Manage Postgres via browser at `http://localhost:5050`.
-    - **Redis Commander**: Manage Redis via browser at `http://localhost:8081`.
+- **Management Tools (Browser-based)**: 
+    - **pgAdmin**: Manage Postgres via browser at [http://localhost:5050](http://localhost:5050).
+    - **Redis Commander**: Manage Redis via browser at [http://localhost:8081](http://localhost:8081).
+
+### 💡 Understanding Access & Security
+
+For beginners, it's important to understand there are two different "layers" of access:
+
+1.  **Management UI (The Software)**: When you open pgAdmin in the browser, you are logging into the *management tool*. Use the default `admin@admin.com` / `admin` credentials.
+2.  **Database Services (The Data)**: Once inside the management tool (or when configuring a node in n8n), you connect to the *actual database* using the credentials defined in your `.env` (e.g., `POSTGRES_USER=n8n`).
+
+> [!NOTE]
+> **Connections from Windows**: If using a desktop tool (like DBeaver), use `localhost` and Port `5433`.
+> **Connections within n8n**: If configuring a Postgres node in n8n, use Host `postgres` and Port `5432`.
 
 ### OAuth Redirect URL (HTTPS)
 
