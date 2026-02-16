@@ -42,6 +42,14 @@ TIMEZONE=America/Sao_Paulo
 NGROK_TOKEN=your_ngrok_auth_token_here
 URL=https://your-domain.ngrok-free.dev
 NGROK_DOMAIN=your-domain.ngrok-free.dev
+
+# Database (PostgreSQL with pgvector)
+POSTGRES_USER=n8n
+POSTGRES_PASSWORD=n8n
+POSTGRES_DB=n8n
+
+# Redis (for Queue Mode)
+REDIS_PASSWORD=n8n
 ```
 
 > [!CAUTION]
@@ -52,6 +60,14 @@ NGROK_DOMAIN=your-domain.ngrok-free.dev
 > - The `NGROK_DOMAIN` variable is now passed **dynamically** to the Ngrok container via `docker-compose.yaml`. This eliminates the need for an external `ngrok.yml` file, improving compatibility with Podman (avoiding rootless volume permission issues).
 
 ## Key Configuration Details
+
+### Professional Scaling & AI Support
+
+This setup is configured for production-like studies, featuring:
+
+- **PostgreSQL (with pgvector)**: Replaces SQLite for robust data handling. The `pgvector` extension allows you to use Postgres as a Vector Database for AI/LLM workflows (embeddings).
+- **Redis & Queue Mode**: Separates the n8n main instance from executions. The `n8n-worker` service handles the actual workload, ensuring the editor remains responsive even under heavy load.
+- **Healthchecks**: Services wait for Postgres and Redis to be healthy before starting, ensuring a smooth boot sequence.
 
 ### OAuth Redirect URL (HTTPS)
 

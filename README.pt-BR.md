@@ -42,6 +42,14 @@ TIMEZONE=America/Sao_Paulo
 NGROK_TOKEN=seu_auth_token_do_ngrok_aqui
 URL=https://seu-dominio.ngrok-free.dev
 NGROK_DOMAIN=seu-dominio.ngrok-free.dev
+
+# Banco de Dados (PostgreSQL com pgvector)
+POSTGRES_USER=n8n
+POSTGRES_PASSWORD=n8n
+POSTGRES_DB=n8n
+
+# Redis (para Modo Fila / Queue Mode)
+REDIS_PASSWORD=n8n
 ```
 
 > [!CAUTION]
@@ -52,6 +60,14 @@ NGROK_DOMAIN=seu-dominio.ngrok-free.dev
 > - A variável `NGROK_DOMAIN` agora é passada **dinamicamente** para o container do Ngrok via `docker-compose.yaml`. Isso elimina a necessidade de um arquivo `ngrok.yml` externo, melhorando a compatibilidade com o Podman (evitando problemas de permissão de volume em modo rootless).
 
 ## Detalhes Principais de Configuração
+
+### Escalabilidade Profissional e Suporte a IA
+
+Esta configuração foi feita para simular um ambiente profissional, incluindo:
+
+- **PostgreSQL (com pgvector)**: Substitui o SQLite para um gerenciamento de dados robusto. A extensão `pgvector` permite que você use o Postgres como um Banco de Dados Vetorial para fluxos de IA/LLM (embeddings).
+- **Redis e Modo Fila (Queue Mode)**: Separa a instância principal do n8n das execuções. O serviço `n8n-worker` lida com a carga de processamento, garantindo que o editor continue rápido mesmo sob carga pesada.
+- **Healthchecks**: Os serviços aguardam o Postgres e o Redis estarem prontos antes de iniciar, garantindo uma inicialização estável.
 
 ### URL de Redirecionamento OAuth (HTTPS)
 
