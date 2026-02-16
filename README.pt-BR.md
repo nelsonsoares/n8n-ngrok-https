@@ -1,0 +1,128 @@
+# n8n com Túnel Ngrok
+
+Read this README in [English 🇺🇸](README.md)
+
+Este repositório contém uma configuração do Docker Compose para rodar o **n8n** com o **Ngrok** como serviço de tunelamento. O n8n é uma ferramenta de automação de fluxo de trabalho que permite conectar diferentes serviços e APIs. O Ngrok expõe servidores locais atrás de NATs e firewalls para a internet pública através de túneis seguros.
+
+> Baseado em [joffcom/n8n-ngrok](https://github.com/joffcom/n8n-ngrok) com configuração adicional para suporte a HTTPS e OAuth.
+
+## Pré-requisitos
+
+Antes de começar, certifique-se de ter o seguinte instalado:
+- [Docker](https://docs.docker.com/get-docker/) ou [Podman](https://podman.io/getting-started/installation)
+- [Docker Compose](https://docs.docker.com/compose/install/) (ou `podman compose`)
+
+## Configuração
+
+### 1. Clonar o Repositório
+
+```bash
+git clone https://github.com/nelsonsoares/n8n-ngrok-https.git
+cd n8n-ngrok-https
+```
+
+### 2. Autenticação do Ngrok
+
+Você precisa de uma conta no Ngrok. Se não tiver uma, crie em [ngrok.com](https://ngrok.com/). Após criar a conta, obtenha seu token de autenticação no painel do Ngrok.
+
+### 3. Reservar um Domínio Permanente
+
+No seu Painel do Ngrok, reserve um domínio em **Cloud Edge > Domains**. Assim que tiver o domínio, prossiga para o próximo passo.
+
+### 4. Configurar Variáveis de Ambiente
+
+1. Copie o arquivo de template para criar seu próprio arquivo `.env`:
+   ```bash
+   cp .env-template .env
+   ```
+2. Abra o arquivo `.env` e preencha seus detalhes:
+
+```sh
+TIMEZONE=America/Sao_Paulo
+NGROK_TOKEN=seu_auth_token_do_ngrok_aqui
+URL=https://seu-dominio.ngrok-free.dev
+NGROK_DOMAIN=seu-dominio.ngrok-free.dev
+```
+
+> [!CAUTION]
+> **AVISO DE SEGURANÇA:** Nunca faça commit do seu arquivo `.env` para o controle de versão. Este projeto inclui um arquivo `.gitignore` que exclui o `.env` por padrão. Se você vazar acidentalmente seu `NGROK_TOKEN` ou `NGROK_DOMAIN`, rotacione seus segredos imediatamente no painel do Ngrok.
+
+> [!IMPORTANT]
+> - A variável `URL` **deve** incluir o prefixo `https://` para o OAuth funcionar.
+> - A variável `NGROK_DOMAIN` agora é passada **dinamicamente** para o container do Ngrok via `docker-compose.yaml`. Isso elimina a necessidade de um arquivo `ngrok.yml` externo, melhorando a compatibilidade com o Podman (evitando problemas de permissão de volume em modo rootless).
+
+## Detalhes Principais de Configuração
+
+### URL de Redirecionamento OAuth (HTTPS)
+
+O `docker-compose.yaml` inclui duas variáveis de ambiente críticas:
+
+| Variável | Propósito |
+|----------|-----------|
+| `WEBHOOK_URL` | Define a URL base para webhooks |
+| `N8N_EDITOR_BASE_URL` | Define a URL base para o editor do n8n, garantindo que as URLs de Redirecionamento OAuth sejam geradas com `https://` |
+
+Ambas usam a variável `URL` do `.env`, que **deve** começar com `https://`. Isso garante que, ao configurar credenciais OAuth (por exemplo, Gmail), a URL de redirecionamento será:
+
+```
+https://seu-dominio.ngrok-free.dev/rest/oauth2-credential/callback
+```
+
+Esta URL é o que você precisa adicionar como um **URI de redirecionamento autorizado** no Google Cloud Console (ou em qualquer provedor OAuth).
+
+## Rodando a Aplicação
+
+```bash
+# Com Docker
+docker-compose up -d
+
+# Com Podman
+podman compose up -d
+```
+
+## Acessando o n8n
+
+Após iniciar os serviços, acesse o n8n navegando para o seu domínio Ngrok no navegador:
+
+```
+https://seu-dominio.ngrok-free.dev
+```
+
+## Parando a Aplicação
+
+```bash
+# Com Docker
+docker-compose down
+
+# Com Podman
+podman compose down
+```
+
+> [!TIP]
+> **DICA DE ESTABILIDADE:** Se você encontrar problemas de conexão ou erros de configuração (como `ERR_NGROK_9034`), sempre use `docker-compose down` (ou `podman compose down`) para parar e remover totalmente os containers e redes virtuais antes de iniciá-los novamente. Isso garante um estado limpo para a configuração dinâmica.
+
+## ⚠️ Suporte a Python no Nó Code
+
+A imagem Docker padrão do n8n é baseada no **Alpine Linux**, uma distribuição Linux leve projetada para ser o mais minimalista possível. Por causa disso, o **Python não está incluído** na imagem — o Alpine traz apenas o básico necessário para rodar o n8n (Node.js). O nó Code roda **JavaScript (Node.js)** nativamente, o que é suficiente para a maioria dos fluxos de trabalho de automação.
+
+Se você precisar de suporte a Python no nó Code, deve construir uma **imagem Docker personalizada**:
+
+```dockerfile
+FROM docker.n8n.io/n8nio/n8n
+
+USER root
+RUN apk add --no-cache python3 py3-pip
+USER node
+```
+
+Em seguida, atualize o `docker-compose.yaml` para construir a partir do Dockerfile em vez de baixar a imagem:
+
+```yaml
+n8n:
+    container_name: n8n
+    build: .
+    # image: docker.n8n.io/n8nio/n8n  # comente esta linha
+```
+
+> [!NOTE]
+> O JavaScript é a linguagem mais utilizada no nó Code do n8n e é recomendada para a maioria dos casos de uso.

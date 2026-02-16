@@ -1,5 +1,7 @@
 # n8n with Ngrok Tunnel
 
+Leia este README em [Português 🇧🇷](README.pt-br.md)
+
 This repository contains a Docker Compose setup for running **n8n** with **Ngrok** as a tunneling service. n8n is a workflow automation tool that allows you to connect different services and APIs. Ngrok exposes local servers behind NATs and firewalls to the public internet over secure tunnels.
 
 > Based on [joffcom/n8n-ngrok](https://github.com/joffcom/n8n-ngrok) with additional configuration for HTTPS and OAuth support.
