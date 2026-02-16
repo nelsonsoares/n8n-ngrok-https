@@ -67,7 +67,9 @@ Esta configuração foi feita para simular um ambiente profissional, incluindo:
 
 - **PostgreSQL (com pgvector)**: Substitui o SQLite para um gerenciamento de dados robusto. A extensão `pgvector` permite que você use o Postgres como um Banco de Dados Vetorial para fluxos de IA/LLM (embeddings).
 - **Redis e Modo Fila (Queue Mode)**: Separa a instância principal do n8n das execuções. O serviço `n8n-worker` lida com a carga de processamento, garantindo que o editor continue rápido mesmo sob carga pesada.
-- **Healthchecks**: Os serviços aguardam o Postgres e o Redis estarem prontos antes de iniciar, garantindo uma inicialização estável.
+- **Ferramentas de Gestão**: 
+    - **pgAdmin**: Gerencie o Postgres pelo navegador em `http://localhost:5050`.
+    - **Redis Commander**: Gerencie o Redis pelo navegador em `http://localhost:8081`.
 
 ### URL de Redirecionamento OAuth (HTTPS)
 
