@@ -67,8 +67,7 @@ REDIS_PASSWORD=n8n
 
 Esta configuração foi feita para simular um ambiente profissional, incluindo:
 
-- **PostgreSQL (com pgvector)**: Substitui o SQLite para um gerenciamento de dados robusto. A extensão `pgvector` permite que você use o Postgres como um Banco de Dados Vetorial para fluxos de IA/LLM (embeddings).
-    *   *Nota: Para habilitar, execute `CREATE EXTENSION IF NOT EXISTS vector;` dentro do seu banco.*
+- **PostgreSQL (com pgvector)**: Substitui o SQLite para um gerenciamento de dados robusto. A extensão `pgvector` é **habilitada automaticamente** na inicialização via `init-db.sql`, permitindo que você use o Postgres como um Banco de Dados Vetorial para fluxos de IA/LLM (embeddings).
 - **Redis e Modo Fila (Queue Mode)**: Separa a instância principal do n8n das execuções. O serviço `n8n-worker` lida com a carga de processamento, garantindo que o editor continue rápido mesmo sob carga pesada.
 - **Ferramentas de Gestão (Navegador)**: 
     - **pgAdmin**: Gerencie o Postgres pelo navegador em [http://localhost:5050](http://localhost:5050).

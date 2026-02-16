@@ -67,8 +67,7 @@ REDIS_PASSWORD=n8n
 
 This setup is configured for production-like studies, featuring:
 
-- **PostgreSQL (with pgvector)**: Replaces SQLite for robust data handling. The `pgvector` extension allows you to use Postgres as a Vector Database for AI/LLM workflows (embeddings).
-    *   *Note: To enable it, run `CREATE EXTENSION IF NOT EXISTS vector;` inside your database.*
+- **PostgreSQL (with pgvector)**: Replaces SQLite for robust data handling. The `pgvector` extension is **automatically enabled** on startup via `init-db.sql`, allowing you to use Postgres as a Vector Database for AI/LLM workflows (embeddings).
 - **Redis & Queue Mode**: Separates the n8n main instance from executions. The `n8n-worker` service handles the actual workload, ensuring the editor remains responsive even under heavy load.
 - **Management Tools (Browser-based)**: 
     - **pgAdmin**: Manage Postgres via browser at [http://localhost:5050](http://localhost:5050).
