@@ -46,12 +46,13 @@ URL=https://seu-dominio.ngrok-free.dev
 NGROK_DOMAIN=seu-dominio.ngrok-free.dev
 
 # Banco de Dados (PostgreSQL com pgvector)
-POSTGRES_USER=n8n
-POSTGRES_PASSWORD=n8n
-POSTGRES_DB=n8n
+POSTGRES_USER=seu_usuario_do_banco
+POSTGRES_PASSWORD=sua_senha_do_banco
+POSTGRES_DB=nome_do_seu_banco
 
 # Redis (para Modo Fila / Queue Mode)
-REDIS_PASSWORD=n8n
+REDIS_PASSWORD=sua_senha_do_redis
+
 ```
 
 > [!CAUTION]
@@ -78,7 +79,8 @@ Esta configuração foi feita para simular um ambiente profissional, incluindo:
 Para quem está começando, é fundamental entender que existem duas "camadas" diferentes de acesso:
 
 1.  **Interface de Gestão (O Software)**: Ao abrir o pgAdmin no navegador, você está entrando na *ferramenta de gestão*. Use as credenciais padrão `admin@admin.com` / `admin`.
-2.  **Serviços de Banco (Os Dados)**: Uma vez dentro da ferramenta (ou ao configurar um nó no n8n), você se conecta ao *banco de dados real* usando as credenciais definidas no seu `.env` (ex: `POSTGRES_USER=n8n`).
+2.  **Serviços de Banco (Os Dados)**: Uma vez dentro da ferramenta (ou ao configurar um nó no n8n), você se conecta ao *banco de dados real* usando as credenciais definidas no seu `.env` (ex: `POSTGRES_USER=seu_usuario_do_banco`).
+
 
 > [!NOTE]
 > **Conexão via Windows**: Se usar uma ferramenta desktop (como DBeaver), use `localhost` e Porta `5433`.

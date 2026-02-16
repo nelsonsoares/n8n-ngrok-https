@@ -46,12 +46,13 @@ URL=https://your-domain.ngrok-free.dev
 NGROK_DOMAIN=your-domain.ngrok-free.dev
 
 # Database (PostgreSQL with pgvector)
-POSTGRES_USER=n8n
-POSTGRES_PASSWORD=n8n
-POSTGRES_DB=n8n
+POSTGRES_USER=your_db_user
+POSTGRES_PASSWORD=your_db_password
+POSTGRES_DB=your_db_name
 
 # Redis (for Queue Mode)
-REDIS_PASSWORD=n8n
+REDIS_PASSWORD=your_redis_password
+
 ```
 
 > [!CAUTION]
@@ -78,7 +79,8 @@ This setup is configured for production-like studies, featuring:
 For beginners, it's important to understand there are two different "layers" of access:
 
 1.  **Management UI (The Software)**: When you open pgAdmin in the browser, you are logging into the *management tool*. Use the default `admin@admin.com` / `admin` credentials.
-2.  **Database Services (The Data)**: Once inside the management tool (or when configuring a node in n8n), you connect to the *actual database* using the credentials defined in your `.env` (e.g., `POSTGRES_USER=n8n`).
+2.  **Database Services (The Data)**: Once inside the management tool (or when configuring a node in n8n), you connect to the *actual database* using the credentials defined in your `.env` (e.g., `POSTGRES_USER=your_db_user`).
+
 
 > [!NOTE]
 > **Connections from Windows**: If using a desktop tool (like DBeaver), use `localhost` and Port `5433`.
