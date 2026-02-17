@@ -53,6 +53,8 @@ POSTGRES_DB=your_db_name
 # Redis (for Queue Mode)
 REDIS_PASSWORD=your_redis_password
 
+# Docker Project Name (Ensures portability if folder is renamed)
+COMPOSE_PROJECT_NAME=n8n-ngrok
 ```
 
 > [!CAUTION]
@@ -123,8 +125,16 @@ https://your-domain.ngrok-free.dev
 docker-compose down
 ```
 
-> [!TIP]
 > **STABILITY TIP:** If you encounter connection issues or configuration errors (like `ERR_NGROK_9034`), always use `docker-compose down` to fully stop and remove containers and virtual networks before starting them again. This ensures a clean state for the dynamic configuration.
+
+### Folder Renaming & Portability
+
+By default, Docker Compose uses the **folder name** as the project name. If you rename the folder (e.g., from `n8n-ngrok` to `n8n-ngrok-https`), Docker might lose track of existing volumes or look for files in the wrong path.
+
+To prevent this, this project hardcodes the project name in the `.env` file:
+- `COMPOSE_PROJECT_NAME=n8n-ngrok`
+
+This ensures that even if you rename the folder on your computer or if someone else clones it with a different name, Docker will always treat it as the same project (`n8n-ngrok`), keeping your database and configurations safe.
 
 
 ## ⚠️ Python Support in the Code Node

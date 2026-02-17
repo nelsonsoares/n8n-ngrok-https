@@ -53,6 +53,8 @@ POSTGRES_DB=nome_do_seu_banco
 # Redis (para Modo Fila / Queue Mode)
 REDIS_PASSWORD=sua_senha_do_redis
 
+# Nome do Projeto Docker (Garante portabilidade se a pasta for renomeada)
+COMPOSE_PROJECT_NAME=n8n-ngrok
 ```
 
 > [!CAUTION]
@@ -123,8 +125,16 @@ https://seu-dominio.ngrok-free.dev
 docker-compose down
 ```
 
-> [!TIP]
-> **DICA DE ESTABILIDADE:** Se você encontrar problemas de conexão ou erros de configuração (como `ERR_NGROK_9034`), sempre use `docker-compose down` para parar e remover totalmente os containers e redes virtuais antes de iniciá-los novamente. Isso garante um estado limpo para a configuração dinâmica.
+> **DICA DE ESTABILIDADE:** Se você encontrar problemas de conexão ou erros de configuração (como `ERR_NGROK_9034`), sempre use `docker-compose down` para parar e remover totalmente os containers e redes virtuais antes de iniciá-los novamente. Isso garante um estado limio para a configuração dinâmica.
+
+### Renomeação de Pasta e Portabilidade
+
+Por padrão, o Docker Compose usa o **nome da pasta** como o nome do projeto. Se você renomear a pasta (por exemplo, de `n8n-ngrok` para `n8n-ngrok-https`), o Docker pode perder o rastro dos volumes existentes ou procurar arquivos no caminho errado.
+
+Para evitar isso, este projeto fixa o nome do projeto no arquivo `.env`:
+- `COMPOSE_PROJECT_NAME=n8n-ngrok`
+
+Isso garante que, mesmo que você renomeie a pasta no seu computador ou se outra pessoa clonar o repositório com um nome diferente, o Docker sempre o tratará como o mesmo projeto (`n8n-ngrok`), mantendo seu banco de dados e configurações seguros.
 
 ## ⚠️ Suporte a Python no Nó Code
 
